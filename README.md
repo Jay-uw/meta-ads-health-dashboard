@@ -10,12 +10,3 @@ Users can upload their ad set data through an **`.xlsx` file** exported directly
 - 📊 **Individual Ad Set Health Scores** *(Excellent, Good, Review, Urgent)*
 
 This tool is ideal for **advertisers**, **marketing analysts**, and **media buyers** who want to quickly identify underperforming ad sets, optimize campaigns, and track results with clear, data-driven visuals.
-
----
-
-**Example input file:**  
-`Solano-Law-Firm-Ad-Account-Ad-sets-Sep-17-2025-Oct-16-2025.xlsx`
-
-**Created by:** Jay Paulino  
-**Role:** Engagement Coordinator  
-**Certification:** Meta Certified Digital Marketing Associate
