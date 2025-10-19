@@ -27,6 +27,16 @@ Upload an `.xlsx` file exported directly from **Meta Ads Manager**, and the dash
 ### 💡 Actionable Insights
 Quickly identify underperforming areas, optimize resource allocation, and improve campaign efficiency with clear, color-coded visuals.
 
+### 💬 Health Score Explanation:
+The health score is based on two main factors:
+
+Cost per Result (CPR) → 60% of the score
+
+Results achieved → 40% of the score
+
+In simple terms, the system prioritizes keeping a low CPR over getting a higher number of results.
+So even if a campaign performs well in results, if its cost per result is high, its overall health score will go down.
+
 ---
 
 ## 🎯 Who It’s For
