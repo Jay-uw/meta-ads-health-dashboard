@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Ads Health Dashboard - Solano Immigration Law Firm</title>
+    <title>Marketing Health Dashboard - Solano Immigration Law Firm</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
@@ -100,6 +100,20 @@
             padding-bottom: 10px;
             margin-bottom: 24px;
         }
+        
+        .controls-panel h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-primary-red);
+            margin-top: 20px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        
+        .controls-panel h3:first-of-type {
+            margin-top: 0;
+        }
 
         .control-group label {
             display: block;
@@ -139,28 +153,23 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
-
-        /* --- CAMBIO AQUÍ --- */
-        /* Se cambió de 'grid' a 'flex' en modo columna */
+        
         .level-content {
             display: flex;
-            flex-direction: column; /* Apila los elementos verticalmente */
+            flex-direction: column;
             gap: 30px;
-            align-items: flex-start; /* Alinea el botón a la izquierda */
+            align-items: flex-start;
         }
         
         .data-display-area {
             min-width: 0;
-            width: 100%; /* Asegura que la tabla ocupe todo el ancho */
+            width: 100%;
         }
         
-        /* --- CAMBIO AQUÍ --- */
-        /* Se le da un ancho fijo al área del botón */
         .file-upload-area {
             width: 250px;
         }
 
-        /* Se quita el margen inferior, el 'gap' del flex lo maneja */
         .file-upload-area .control-group { margin-bottom: 0; }
 
         .file-upload-btn {
@@ -210,8 +219,34 @@
             z-index: 10;
         }
         
+        td.video-link-cell {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        td.video-link-cell a {
+            color: var(--color-primary-red);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        td.video-link-cell a:hover {
+            text-decoration: underline;
+        }
+
         .health-cell { display: flex; align-items: center; gap: 12px; }
         .health-score { font-weight: 700; padding: 4px 10px; border-radius: 16px; color: white; font-size: 14px; }
+
+        /* --- NUEVAS CLASES PARA COLOREAR CELDAS --- */
+        .metric-value { font-weight: 600; }
+        .text-excellent { color: var(--health-excellent); }
+        .text-good { color: var(--health-good); }
+        .text-review { color: #b08f0d; } /* Darker yellow */
+        .text-attention { color: var(--health-attention); }
+        .text-urgent { color: var(--health-urgent); }
+        .text-neutral { color: var(--color-dark-gray-text); }
+
 
         footer {
             background-color: var(--color-black);
@@ -239,26 +274,95 @@
     <div class="container">
         <header>
             <img src="slf_logo.png" alt="Solano Immigration Law Firm Logo" class="logo">
-            <h1>Meta Ads Health Dashboard</h1>
+            <h1>Marketing Health Dashboard</h1>
         </header>
         
         <main class="main-layout">
             <aside class="controls-panel">
-                <h2>Global Parameters</h2>
-                <div class="control-group">
-                    <label for="costTarget">Cost per Result (Target)</label>
-                    <input id="costTarget" type="number" value="8" step="0.5">
+                <h2>Parameters</h2>
+                
+                <div class="parameters-group">
+                    <h3>Meta Ads</h3>
+                    <div class="control-group">
+                        <label for="costTarget">Cost per Result (Target)</label>
+                        <input id="costTarget" type="number" value="8" step="0.5">
+                    </div>
+                    <div class="control-group">
+                        <label for="resultsTarget">Results (Target)</label>
+                        <input id="resultsTarget" type="number" value="190" step="1">
+                    </div>
                 </div>
-                <div class="control-group">
-                    <label for="resultsTarget">Results (Target)</label>
-                    <input id="resultsTarget" type="number" value="190" step="1">
+
+                <div class="parameters-group">
+                    <h3>TikTok Posts</h3>
+                    <div class="control-group">
+                        <label for="tiktokEngageTarget">Engagement Rate (Target %)</label>
+                        <input id="tiktokEngageTarget" type="number" value="8" step="0.5">
+                    </div>
+                    <div class="control-group">
+                        <label for="tiktokWatchTimeTarget">Avg. Watch Time (Target %)</label>
+                        <input id="tiktokWatchTimeTarget" type="number" value="60" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="tiktokCompletionTarget">Completion Rate (Target %)</label>
+                        <input id="tiktokCompletionTarget" type="number" value="40" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="tiktokRetentionTarget">Retention at 3s (Target %)</label>
+                        <input id="tiktokRetentionTarget" type="number" value="70" step="1">
+                    </div>
                 </div>
             </aside>
 
             <div class="dashboard-sections">
 
+                <section class="dashboard-level" id="tiktok-section">
+                    <h2>TikTok Posts</h2>
+                    <div class="level-content">
+                        <div class="file-upload-area">
+                            <div class="control-group">
+                                <input type="file" id="xlsxFileTikTok" accept=".xlsx">
+                                <label for="xlsxFileTikTok" class="file-upload-btn">Upload TikTok XLSX</label>
+                                <p class="fileName" style="font-size: 12px; text-align: center; margin-top: 8px;"></p>
+                            </div>
+                        </div>
+                        <div class="data-display-area">
+                            <div class="summary-cards">
+                                <div class="card"><div class="card-title">Total Posts</div><div class="card-value total-count">—</div></div>
+                                <div class="card"><div class="card-title">Avg. Engagement</div><div class="card-value avg-engagement">—</div></div>
+                                <div class="card"><div class="card-title">Posts Requiring Action</div><div class="card-value action-count red">—</div></div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Health Score</th>
+                                            <th>Date Posted</th>
+                                            <th>Account</th>
+                                            <th>Video Link</th>
+                                            <th>Views</th>
+                                            <th>Likes</th>
+                                            <th>Comments</th>
+                                            <th>Shares</th>
+                                            <th>Saves</th>
+                                            <th>Engagement Rate</th>
+                                            <th>Video Length (s)</th>
+                                            <th>Avg. Watch Time</th>
+                                            <th>Avg. Watch Time %</th>
+                                            <th>Completion Rate</th>
+                                            <th>New Followers</th>
+                                            <th>Retention @ 3s</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body"><tr><td colspan="16" style="text-align: center; padding: 40px;">Upload a file to see TikTok post data.</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <section class="dashboard-level" id="campaigns-section">
-                    <h2>Campaigns</h2>
+                    <h2>Campaigns (Meta)</h2>
                     <div class="level-content">
                         <div class="file-upload-area">
                             <div class="control-group">
@@ -284,7 +388,7 @@
                 </section>
 
                 <section class="dashboard-level" id="ad-sets-section">
-                    <h2>Ad Sets</h2>
+                    <h2>Ad Sets (Meta)</h2>
                      <div class="level-content">
                         <div class="file-upload-area">
                             <div class="control-group">
@@ -310,7 +414,7 @@
                 </section>
 
                 <section class="dashboard-level" id="ads-section">
-                    <h2>Ads</h2>
+                    <h2>Ads (Meta)</h2>
                      <div class="level-content">
                         <div class="file-upload-area">
                             <div class="control-group">
@@ -353,34 +457,82 @@
     <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
 <script>
-    // El código JavaScript no necesita cambios para esto, 
-    // ya que solo hemos modificado el layout con CSS.
     document.addEventListener('DOMContentLoaded', () => {
 
+        // --- PARAMETER INPUTS ---
         const costTargetInput = document.getElementById('costTarget');
         const resultsTargetInput = document.getElementById('resultsTarget');
+        const tiktokEngageTargetInput = document.getElementById('tiktokEngageTarget');
+        const tiktokWatchTimeTargetInput = document.getElementById('tiktokWatchTimeTarget');
+        const tiktokCompletionTargetInput = document.getElementById('tiktokCompletionTarget');
+        const tiktokRetentionTargetInput = document.getElementById('tiktokRetentionTarget');
 
+        // --- DASHBOARD STATE (AHORA TODO EN MINÚSCULAS) ---
         const dashboardState = {
-            campaigns: { data: [], nameKey: 'Campaign name', headerKey: 'Campaign name', sectionId: 'campaigns-section' },
-            adSets:    { data: [], nameKey: 'Ad set name',   headerKey: 'Ad set name',   sectionId: 'ad-sets-section' },
-            ads:       { data: [], nameKey: 'Ad name',       headerKey: 'Ad name',       sectionId: 'ads-section' }
+            campaigns: { data: [], nameKey: 'campaign name', headerKey: 'campaign name', requiredKey: 'results', sectionId: 'campaigns-section', type: 'meta' },
+            adSets:     { data: [], nameKey: 'ad set name',   headerKey: 'ad set name',   requiredKey: 'results', sectionId: 'ad-sets-section', type: 'meta' },
+            ads:        { data: [], nameKey: 'ad name',       headerKey: 'ad name',       requiredKey: 'results', sectionId: 'ads-section',     type: 'meta' },
+            tiktok:     { data: [], nameKey: 'video link',    headerKey: 'date posted',   requiredKey: 'views',   sectionId: 'tiktok-section',  type: 'tiktok' }
         };
 
+        // --- TIKTOK COLUMN KEYS (AHORA TODO EN MINÚSCULAS) ---
+        const TIKTOK_COLS = {
+            DATE: 'date posted',
+            ACCOUNT: 'account',
+            LINK: 'video link',
+            VIEWS: 'views',
+            LIKES: 'likes',
+            COMMENTS: 'comments',
+            SHARES: 'shares',
+            SAVES: 'saves',
+            ENGAGEMENT_RATE: 'engagement rate (4-8% strong - 10%+ excellent)',
+            VIDEO_LENGTH: 'video length (in secs)',
+            AVG_WATCH_TIME: 'average watch time',
+            AVG_WATCH_TIME_PERCENT: 'average watch time % (60%)',
+            COMPLETION_RATE: 'completion rate (30% is good 50% is excellent)',
+            NEW_FOLLOWERS: 'new followers',
+            RETENTION_3S: 'retention rate at 3 sec (65% is good 75%+ is excellent)'
+        };
+
+        // --- INITIALIZATION ---
         function init() {
+            // Meta Param Listeners
             costTargetInput.addEventListener('input', () => reRenderAllLevels());
             resultsTargetInput.addEventListener('input', () => reRenderAllLevels());
             
+            // TikTok Param Listeners
+            tiktokEngageTargetInput.addEventListener('input', () => reRenderAllLevels());
+            tiktokWatchTimeTargetInput.addEventListener('input', () => reRenderAllLevels());
+            tiktokCompletionTargetInput.addEventListener('input', () => reRenderAllLevels());
+            tiktokRetentionTargetInput.addEventListener('input', () => reRenderAllLevels());
+            
+            // File Upload Listeners
             document.getElementById('xlsxFileCampaigns').addEventListener('change', (e) => handleFileSelect(e, 'campaigns'));
             document.getElementById('xlsxFileAdSets').addEventListener('change', (e) => handleFileSelect(e, 'adSets'));
             document.getElementById('xlsxFileAds').addEventListener('change', (e) => handleFileSelect(e, 'ads'));
+            document.getElementById('xlsxFileTikTok').addEventListener('change', (e) => handleFileSelect(e, 'tiktok'));
         }
         
+        // --- RERENDER ALL ---
         function reRenderAllLevels() {
             Object.keys(dashboardState).forEach(level => {
-                if (dashboardState[level].data.length > 0) renderLevel(level);
+                if (dashboardState[level].data.length > 0) {
+                    renderData(level);
+                }
             });
         }
+
+        // --- RENDER DISPATCHER ---
+        function renderData(level) {
+            const levelType = dashboardState[level].type;
+            if (levelType === 'meta') {
+                renderMetaLevel(level);
+            } else if (levelType === 'tiktok') {
+                renderTikTokLevel();
+            }
+        }
         
+        // --- FILE HANDLING (AHORA MÁS ROBUSTO) ---
         function handleFileSelect(event, level) {
             const file = event.target.files[0];
             const levelConfig = dashboardState[level];
@@ -398,42 +550,213 @@
                     const data = new Uint8Array(e.target.result);
                     const workbook = XLSX.read(data, { type: 'array' });
                     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+                    
+                    let rows;
+                    
+                    if (level === 'tiktok') {
+                        rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "", raw: false, dateNF: 'm/d/yyyy' });
+                    } else {
+                        rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+                    }
 
+                    // *** CORRECCIÓN DE ERROR DE CABECERA ***
                     let headerRowIndex = -1;
                     for (let i = 0; i < Math.min(rows.length, 10); i++) {
-                        if (rows[i].includes(levelConfig.headerKey) && rows[i].includes('Results')) {
+                        // Procesa la fila para que no importen mayúsculas o espacios
+                        const processedRow = rows[i].map(h => String(h).trim().toLowerCase());
+                        
+                        // Usa las claves en minúsculas de levelConfig
+                        const headerKeyFound = processedRow.includes(levelConfig.headerKey);
+                        const requiredKeyFound = processedRow.includes(levelConfig.requiredKey);
+
+                        if (headerKeyFound && requiredKeyFound) {
                             headerRowIndex = i;
                             break;
                         }
                     }
 
-                    if (headerRowIndex === -1) throw new Error(`Header row with '${levelConfig.headerKey}' not found.`);
+                    if (headerRowIndex === -1) throw new Error(`Header row with '${levelConfig.headerKey}' and '${levelConfig.requiredKey}' not found. Check file.`);
 
-                    const headers = rows[headerRowIndex];
+                    // Crea las cabeceras normalizadas (minúsculas y sin espacios)
+                    const headers = rows[headerRowIndex].map(h => String(h).trim().toLowerCase());
                     const dataRows = rows.slice(headerRowIndex + 1);
 
                     const jsonData = dataRows.map(row => {
                         const obj = {};
-                        headers.forEach((header, index) => { obj[header.trim()] = row[index]; });
+                        headers.forEach((header, index) => { 
+                            if(header) obj[header] = row[index]; // Usa la cabecera normalizada
+                        });
                         return obj;
-                    }).filter(row => row[levelConfig.nameKey] && String(row[levelConfig.nameKey]).trim() !== '');
+                    }).filter(row => row[levelConfig.nameKey] && String(row[levelConfig.nameKey]).trim() !== ''); // Filtra usando la clave normalizada
 
                     levelConfig.data = jsonData;
 
                     if (jsonData.length === 0) throw new Error("No data found after processing.");
                     
-                    renderLevel(level);
+                    renderData(level); // Call dispatcher
 
                 } catch (error) {
                     console.error("Error processing XLSX file:", error);
-                    tableBody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 40px; color: var(--health-urgent);">Error: ${error.message}</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="100%" style="text-align: center; padding: 40px; color: var(--health-urgent);">Error: ${error.message}</td></tr>`;
                 }
             };
             reader.readAsArrayBuffer(file);
         }
 
-        function renderLevel(level) {
+        // ===========================================
+        // == TIKTOK SPECIFIC FUNCTIONS
+        // ===========================================
+
+        function renderTikTokLevel() {
+            const levelConfig = dashboardState.tiktok;
+            const section = document.getElementById(levelConfig.sectionId);
+            const tableBody = section.querySelector('.table-body');
+            const data = levelConfig.data;
+
+            // Objeto de parámetros para pasar a las funciones
+            const targets = { 
+                engageTarget: sanitizeNumber(tiktokEngageTargetInput.value), 
+                watchTimeTarget: sanitizeNumber(tiktokWatchTimeTargetInput.value), 
+                completionTarget: sanitizeNumber(tiktokCompletionTargetInput.value), 
+                retentionTarget: sanitizeNumber(tiktokRetentionTargetInput.value) 
+            };
+
+            if (!data || data.length === 0) { return; }
+            
+            // Mapea los datos, calculando salud Y colores en una sola pasada
+            const dataWithHealth = data.map(row => {
+                const healthInfo = getTikTokHealth(row, targets);
+                
+                // Sanitiza valores para colorear
+                const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
+                const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
+                const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
+                const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
+
+                // Obtiene clases de color
+                const colors = {
+                    engColor: getPerformanceColor(engRate, targets.engageTarget),
+                    watchColor: getPerformanceColor(watchTime, targets.watchTimeTarget),
+                    compColor: getPerformanceColor(completion, targets.completionTarget),
+                    retColor: getPerformanceColor(retention, targets.retentionTarget)
+                };
+                
+                return {...row, healthInfo, colors };
+            });
+            
+            dataWithHealth.sort((a, b) => b.healthInfo.health - a.healthInfo.health);
+
+            tableBody.innerHTML = '';
+            dataWithHealth.forEach(row => {
+                const { health, color, label } = row.healthInfo;
+                const { engColor, watchColor, compColor, retColor } = row.colors;
+                const tr = document.createElement('tr');
+
+                const videoLink = row[TIKTOK_COLS.LINK] || 'N/A';
+                const displayLink = videoLink.length > 50 ? videoLink.substring(0, 50) + '...' : videoLink;
+                const linkHTML = videoLink !== 'N/A' 
+                    ? `<a href="${videoLink}" target="_blank" title="${videoLink}">${displayLink}</a>` 
+                    : 'N/A';
+
+                const datePosted = row[TIKTOK_COLS.DATE] || 'N/A';
+
+                tr.innerHTML = `
+                    <td><div class="health-cell"><span class="health-score" style="background-color: ${color};">${health}</span><span>${label}</span></div></td>
+                    <td>${datePosted}</td>
+                    <td>${row[TIKTOK_COLS.ACCOUNT] || 'N/A'}</td>
+                    <td class="video-link-cell">${linkHTML}</td>
+                    <td>${row[TIKTOK_COLS.VIEWS] || 'N/A'}</td>
+                    <td>${row[TIKTOK_COLS.LIKES] || 'N/A'}</td>
+                    <td>${row[TIKTOK_COLS.COMMENTS] || 'N/A'}</td>
+                    <td>${row[TIKTOK_COLS.SHARES] || 'N/A'}</td>
+                    <td>${row[TIKTOK_COLS.SAVES] || 'N/A'}</td>
+                    <td><span class="metric-value ${engColor}">${row[TIKTOK_COLS.ENGAGEMENT_RATE] || 'N/A'}</span></td>
+                    <td>${row[TIKTOK_COLS.VIDEO_LENGTH] || 'N/A'}</td>
+                    <td>${row[TIKTOK_COLS.AVG_WATCH_TIME] || 'N/A'}</td>
+                    <td><span class="metric-value ${watchColor}">${row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT] || 'N/A'}</span></td>
+                    <td><span class="metric-value ${compColor}">${row[TIKTOK_COLS.COMPLETION_RATE] || 'N/A'}</span></td>
+                    <td>${row[TIKTOK_COLS.NEW_FOLLOWERS] || 'N/A'}</td>
+                    <td><span class="metric-value ${retColor}">${row[TIKTOK_COLS.RETENTION_3S] || 'N/A'}</span></td>`;
+                tableBody.appendChild(tr);
+            });
+            
+            updateTikTokSummaryCards(dataWithHealth);
+        }
+
+        // *** CÁLCULO DE SALUD DE TIKTOK CON PESOS DINÁMICOS ***
+        function getTikTokHealth(row, targets) {
+            const { engageTarget, watchTimeTarget, completionTarget, retentionTarget } = targets;
+
+            // 1. Calcular pesos dinámicos
+            // Usa 1 si el parámetro es 0 o NaN para evitar división por cero
+            const tEng = isNaN(engageTarget) || engageTarget <= 0 ? 1 : engageTarget;
+            const tWatch = isNaN(watchTimeTarget) || watchTimeTarget <= 0 ? 1 : watchTimeTarget;
+            const tComp = isNaN(completionTarget) || completionTarget <= 0 ? 1 : completionTarget;
+            const tRet = isNaN(retentionTarget) || retentionTarget <= 0 ? 1 : retentionTarget;
+
+            const totalWeight = tEng + tWatch + tComp + tRet;
+            const wEng = tEng / totalWeight;
+            const wWatch = tWatch / totalWeight;
+            const wComp = tComp / totalWeight;
+            const wRet = tRet / totalWeight;
+
+            // 2. Obtener valores de la fila
+            const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
+            const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
+            const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
+            const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
+            
+            // 3. Calcular scores individuales (0-100)
+            const scoreEng = isNaN(engRate) || engageTarget <= 0 ? 0 : Math.min(100, (engRate / engageTarget) * 100);
+            const scoreWatch = isNaN(watchTime) || watchTimeTarget <= 0 ? 0 : Math.min(100, (watchTime / watchTimeTarget) * 100);
+            const scoreComp = isNaN(completion) || completionTarget <= 0 ? 0 : Math.min(100, (completion / completionTarget) * 100);
+            const scoreRet = isNaN(retention) || retentionTarget <= 0 ? 0 : Math.min(100, (retention / retentionTarget) * 100);
+
+            // 4. Aplicar pesos dinámicos
+            const health = Math.round(
+                (scoreEng * wEng) + 
+                (scoreWatch * wWatch) + 
+                (scoreComp * wComp) +
+                (scoreRet * wRet)
+            );
+            
+            let color, label;
+            if (health >= 85) { color = 'var(--health-excellent)'; label = "Excellent"; }
+            else if (health >= 65) { color = 'var(--health-good)'; label = "Good"; }
+            else if (health >= 45) { color = 'var(--health-review)'; label = "Review"; }
+            else if (health >= 25) { color = 'var(--health-attention)'; label = "Attention"; }
+            else { color = 'var(--health-urgent)'; label = "Urgent"; }
+            return { health, color, label };
+        }
+
+        function updateTikTokSummaryCards(dataWithHealth) {
+            const section = document.getElementById(dashboardState.tiktok.sectionId);
+            
+            let totalEngagement = 0;
+            let actionCount = 0;
+
+            dataWithHealth.forEach(row => {
+                totalEngagement += sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]) || 0;
+                
+                const { label } = row.healthInfo;
+                if (label !== 'Excellent' && label !== 'Good') {
+                    actionCount++;
+                }
+            });
+
+            const avgEngagement = dataWithHealth.length > 0 ? (totalEngagement / dataWithHealth.length).toFixed(2) : 0;
+
+            section.querySelector('.total-count').textContent = dataWithHealth.length;
+            section.querySelector('.avg-engagement').textContent = dataWithHealth.length > 0 ? `${avgEngagement}%` : '—';
+            section.querySelector('.action-count').textContent = actionCount;
+        }
+
+
+        // ===========================================
+        // == META ADS SPECIFIC FUNCTIONS
+        // ===========================================
+
+        function renderMetaLevel(level) {
             const levelConfig = dashboardState[level];
             const section = document.getElementById(levelConfig.sectionId);
             const tableBody = section.querySelector('.table-body');
@@ -444,45 +767,63 @@
 
             if (!data || data.length === 0) { return; }
             
-            const dataWithHealth = data.map(row => ({...row, healthInfo: getHealth(row, costTarget, resultsTarget) }));
+            // Mapea datos, calcula salud Y colores
+            const dataWithHealth = data.map(row => {
+                const healthInfo = getMetaHealth(row, costTarget, resultsTarget);
+                
+                // Sanitiza valores para colorear
+                const cost = sanitizeNumber(row['cost per results'] || row['cost per result']);
+                const results = sanitizeNumber(row['results']);
+                
+                // Obtiene clases de color
+                const colors = {
+                    costColor: getCostColor(cost, costTarget),
+                    resultsColor: getPerformanceColor(results, resultsTarget)
+                };
+                
+                return {...row, healthInfo, colors};
+            });
+            
             dataWithHealth.sort((a, b) => b.healthInfo.health - a.healthInfo.health);
 
             tableBody.innerHTML = '';
             dataWithHealth.forEach(row => {
                 const { health, color, label } = row.healthInfo;
+                const { costColor, resultsColor } = row.colors;
                 const tr = document.createElement('tr');
+                
+                // Las claves aquí son todas minúsculas
                 tr.innerHTML = `
                     <td><div class="health-cell"><span class="health-score" style="background-color: ${color};">${health}</span><span>${label}</span></div></td>
                     <td>${row[levelConfig.nameKey] || 'N/A'}</td>
-                    <td>${row['Amount spent (USD)'] || row['Amount spent'] || 'N/A'}</td>
-                    <td>${row['Results'] || 'N/A'}</td>
-                    <td>${row['Cost per results'] || row['Cost per result'] || 'N/A'}</td>
-                    <td>${row['Reach'] || 'N/A'}</td>
-                    <td>${row['Impressions'] || 'N/A'}</td>
-                    <td>${row['Link clicks'] || 'N/A'}</td>`;
+                    <td>${row['amount spent (usd)'] || row['amount spent'] || 'N/A'}</td>
+                    <td><span class="metric-value ${resultsColor}">${row['results'] || 'N/A'}</span></td>
+                    <td><span class="metric-value ${costColor}">${row['cost per results'] || row['cost per result'] || 'N/A'}</span></td>
+                    <td>${row['reach'] || 'N/A'}</td>
+                    <td>${row['impressions'] || 'N/A'}</td>
+                    <td>${row['link clicks'] || 'N/A'}</td>`;
                 tableBody.appendChild(tr);
             });
             
-            updateSummaryCards(level);
+            updateMetaSummaryCards(level, dataWithHealth);
         }
 
-        function updateSummaryCards(level) {
+        function updateMetaSummaryCards(level, dataWithHealth) {
             const levelConfig = dashboardState[level];
             const section = document.getElementById(levelConfig.sectionId);
             const data = levelConfig.data;
             
-            const costTarget = sanitizeNumber(costTargetInput.value);
-            const resultsTarget = sanitizeNumber(resultsTargetInput.value);
-
             let totalSpend = 0;
             let totalResults = 0;
             let actionCount = 0;
 
-            data.forEach(row => {
-                totalSpend += sanitizeNumber(row['Amount spent (USD)'] || row['Amount spent']) || 0;
-                totalResults += sanitizeNumber(row['Results']) || 0;
+            // dataWithHealth ya tiene la info de salud
+            dataWithHealth.forEach(row => {
+                // Usa las claves en minúsculas
+                totalSpend += sanitizeNumber(row['amount spent (usd)'] || row['amount spent']) || 0;
+                totalResults += sanitizeNumber(row['results']) || 0;
                 
-                const { label } = getHealth(row, costTarget, resultsTarget);
+                const { label } = row.healthInfo;
                 if (label !== 'Excellent' && label !== 'Good') {
                     actionCount++;
                 }
@@ -495,19 +836,14 @@
             section.querySelector('.action-count').textContent = actionCount;
         }
 
-        function sanitizeNumber(value) {
-            if (value === undefined || value === null || value === '' || value === '-' || String(value).trim().toLowerCase() === 'n/a') return NaN;
-            let stringValue = String(value).replace(/[^0-np.0-9.-]/g, '');
-            if (stringValue === '' || stringValue === '-') return NaN;
-            return Number(stringValue);
-        }
-
-        function getHealth(row, costTarget, resultsTarget) {
-            const cost = sanitizeNumber(row['Cost per results'] || row['Cost per result']);
-            const results = sanitizeNumber(row['Results']);
+        function getMetaHealth(row, costTarget, resultsTarget) {
+            // Usa las claves en minúsculas
+            const cost = sanitizeNumber(row['cost per results'] || row['cost per result']);
+            const results = sanitizeNumber(row['results']);
 
             const scoreCost = isNaN(cost) || costTarget <= 0 ? 0 : Math.max(0, (2 - (cost / costTarget)) * 100);
             const scoreResults = isNaN(results) || resultsTarget <= 0 ? 0 : Math.min(100, (results / resultsTarget) * 100);
+            
             const health = Math.round(0.6 * scoreCost + 0.4 * scoreResults);
             
             let color, label;
@@ -519,6 +855,57 @@
             return { health, color, label };
         }
 
+        // ===========================================
+        // == NUEVAS FUNCIONES DE COLOR
+        // ===========================================
+
+        /**
+         * Devuelve una clase de color para métricas donde MÁS ALTO es MEJOR.
+         */
+        function getPerformanceColor(value, target) {
+            if (isNaN(value) || isNaN(target) || target <= 0) return 'text-neutral';
+            
+            if (value >= target) return 'text-excellent';
+            if (value >= target * 0.8) return 'text-good';
+            if (value >= target * 0.6) return 'text-review';
+            if (value >= target * 0.4) return 'text-attention';
+            return 'text-urgent';
+        }
+
+        /**
+         * Devuelve una clase de color para métricas donde MÁS BAJO es MEJOR.
+         */
+        function getCostColor(value, target) {
+            if (isNaN(value) || isNaN(target) || target <= 0) return 'text-neutral';
+
+            if (value <= target) return 'text-excellent';
+            if (value <= target * 1.25) return 'text-good';
+            if (value <= target * 1.5) return 'text-review';
+            if (value <= target * 1.75) return 'text-attention';
+            return 'text-urgent';
+        }
+
+
+        // ===========================================
+        // == UTILITY FUNCTIONS
+        // ===========================================
+
+        function sanitizeNumber(value) {
+            if (value === undefined || value === null || value === '' || value === '-' || String(value).trim().toLowerCase() === 'n/a') return NaN;
+            let stringValue = String(value).replace(/[^0-9.-]/g, ''); 
+            if (stringValue === '' || stringValue === '-') return NaN;
+            return Number(stringValue);
+        }
+
+        function sanitizePercentage(value) {
+            if (value === undefined || value === null || value === '' || value === '-' || String(value).trim().toLowerCase() === 'n/a') return NaN;
+            // Limpia "49%" o "12.5%" a 49 o 12.5
+            let stringValue = String(value).replace(/[^0-9.-]/g, '');
+            if (stringValue === '' || stringValue === '-') return NaN;
+            return Number(stringValue);
+        }
+
+        // --- START THE APP ---
         init();
     });
 </script>
