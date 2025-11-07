@@ -238,7 +238,7 @@
         .health-cell { display: flex; align-items: center; gap: 12px; }
         .health-score { font-weight: 700; padding: 4px 10px; border-radius: 16px; color: white; font-size: 14px; }
 
-        /* --- NUEVAS CLASES PARA COLOREAR CELDAS --- */
+        /* --- CLASES PARA COLOREAR CELDAS --- */
         .metric-value { font-weight: 600; }
         .text-excellent { color: var(--health-excellent); }
         .text-good { color: var(--health-good); }
@@ -284,12 +284,20 @@
                 <div class="parameters-group">
                     <h3>Meta Ads</h3>
                     <div class="control-group">
-                        <label for="costTarget">Cost per Result (Target)</label>
-                        <input id="costTarget" type="number" value="8" step="0.5">
+                        <label for="metaCostPerConversationTarget">Cost per Msg Conversation (Target)</label>
+                        <input id="metaCostPerConversationTarget" type="number" value="8" step="0.5">
                     </div>
                     <div class="control-group">
-                        <label for="resultsTarget">Results (Target)</label>
-                        <input id="resultsTarget" type="number" value="190" step="1">
+                        <label for="metaNewContactsTarget">New Messaging Contacts (Target)</label>
+                        <input id="metaNewContactsTarget" type="number" value="150" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="metaImpressionsTarget">Impressions (Target)</label>
+                        <input id="metaImpressionsTarget" type="number" value="100000" step="1000">
+                    </div>
+                    <div class="control-group">
+                        <label for="metaReachTarget">Reach (Target)</label>
+                        <input id="metaReachTarget" type="number" value="80000" step="1000">
                     </div>
                 </div>
 
@@ -374,12 +382,12 @@
                         <div class="data-display-area">
                             <div class="summary-cards">
                                 <div class="card"><div class="card-title">Total Campaigns</div><div class="card-value total-count">—</div></div>
-                                <div class="card"><div class="card-title">Average Cost / Result</div><div class="card-value avg-cost">—</div></div>
+                                <div class="card"><div class="card-title">Average Cost / New Contact</div><div class="card-value avg-cost">—</div></div>
                                 <div class="card"><div class="card-title">Campaigns Requiring Action</div><div class="card-value action-count red">—</div></div>
                             </div>
                             <div class="table-container">
                                 <table>
-                                    <thead><tr><th>Health Score</th><th>Campaign Name</th><th>Amount Spent</th><th>Results</th><th>Cost/Result</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
+                                    <thead><tr><th>Health Score</th><th>Campaign Name</th><th>Amount Spent</th><th>New Messaging Contacts</th><th>Cost per Msg Conversation</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
                                     <tbody class="table-body"><tr><td colspan="8" style="text-align: center; padding: 40px;">Upload a file to see campaign data.</td></tr></tbody>
                                 </table>
                             </div>
@@ -400,12 +408,12 @@
                         <div class="data-display-area">
                             <div class="summary-cards">
                                 <div class="card"><div class="card-title">Total Ad Sets</div><div class="card-value total-count">—</div></div>
-                                <div class="card"><div class="card-title">Average Cost / Result</div><div class="card-value avg-cost">—</div></div>
+                                <div class="card"><div class="card-title">Average Cost / New Contact</div><div class="card-value avg-cost">—</div></div>
                                 <div class="card"><div class="card-title">Ad Sets Requiring Action</div><div class="card-value action-count red">—</div></div>
                             </div>
                             <div class="table-container">
                                 <table>
-                                    <thead><tr><th>Health Score</th><th>Ad Set Name</th><th>Amount Spent</th><th>Results</th><th>Cost/Result</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
+                                    <thead><tr><th>Health Score</th><th>Ad Set Name</th><th>Amount Spent</th><th>New Messaging Contacts</th><th>Cost per Msg Conversation</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
                                     <tbody class="table-body"><tr><td colspan="8" style="text-align: center; padding: 40px;">Upload a file to see ad set data.</td></tr></tbody>
                                 </table>
                             </div>
@@ -426,12 +434,12 @@
                         <div class="data-display-area">
                             <div class="summary-cards">
                                 <div class="card"><div class="card-title">Total Ads</div><div class="card-value total-count">—</div></div>
-                                <div class="card"><div class="card-title">Average Cost / Result</div><div class="card-value avg-cost">—</div></div>
+                                <div class="card"><div class="card-title">Average Cost / New Contact</div><div class="card-value avg-cost">—</div></div>
                                 <div class="card"><div class="card-title">Ads Requiring Action</div><div class="card-value action-count red">—</div></div>
                             </div>
                             <div class="table-container">
                                 <table>
-                                    <thead><tr><th>Health Score</th><th>Ad Name</th><th>Amount Spent</th><th>Results</th><th>Cost/Result</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
+                                    <thead><tr><th>Health Score</th><th>Ad Name</th><th>Amount Spent</th><th>New Messaging Contacts</th><th>Cost per Msg Conversation</th><th>Reach</th><th>Impressions</th><th>Link Clicks</th></tr></thead>
                                     <tbody class="table-body"><tr><td colspan="8" style="text-align: center; padding: 40px;">Upload a file to see ad data.</td></tr></tbody>
                                 </table>
                             </div>
@@ -452,6 +460,7 @@
                 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="96d65e88-747c-424f-a469-1d18c9eb4f15" data-share-badge-host="https://www.credly.com"></div>
             </div>
         </div>
+        <p>v.2.1.1</p>
     </footer>
     
     <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
@@ -460,22 +469,24 @@
     document.addEventListener('DOMContentLoaded', () => {
 
         // --- PARAMETER INPUTS ---
-        const costTargetInput = document.getElementById('costTarget');
-        const resultsTargetInput = document.getElementById('resultsTarget');
+        const metaCostPerConversationTargetInput = document.getElementById('metaCostPerConversationTarget');
+        const metaNewContactsTargetInput = document.getElementById('metaNewContactsTarget');
+        const metaImpressionsTargetInput = document.getElementById('metaImpressionsTarget');
+        const metaReachTargetInput = document.getElementById('metaReachTarget');
         const tiktokEngageTargetInput = document.getElementById('tiktokEngageTarget');
         const tiktokWatchTimeTargetInput = document.getElementById('tiktokWatchTimeTarget');
         const tiktokCompletionTargetInput = document.getElementById('tiktokCompletionTarget');
         const tiktokRetentionTargetInput = document.getElementById('tiktokRetentionTarget');
 
-        // --- DASHBOARD STATE (AHORA TODO EN MINÚSCULAS) ---
+        // --- DASHBOARD STATE ---
         const dashboardState = {
-            campaigns: { data: [], nameKey: 'campaign name', headerKey: 'campaign name', requiredKey: 'results', sectionId: 'campaigns-section', type: 'meta' },
-            adSets:     { data: [], nameKey: 'ad set name',   headerKey: 'ad set name',   requiredKey: 'results', sectionId: 'ad-sets-section', type: 'meta' },
-            ads:        { data: [], nameKey: 'ad name',       headerKey: 'ad name',       requiredKey: 'results', sectionId: 'ads-section',     type: 'meta' },
+            campaigns: { data: [], nameKey: 'campaign name', headerKey: 'campaign name', requiredKey: 'impressions', sectionId: 'campaigns-section', type: 'meta' },
+            adSets:     { data: [], nameKey: 'ad set name',   headerKey: 'ad set name',   requiredKey: 'impressions', sectionId: 'ad-sets-section', type: 'meta' },
+            ads:        { data: [], nameKey: 'ad name',       headerKey: 'ad name',       requiredKey: 'impressions', sectionId: 'ads-section',     type: 'meta' },
             tiktok:     { data: [], nameKey: 'video link',    headerKey: 'date posted',   requiredKey: 'views',   sectionId: 'tiktok-section',  type: 'tiktok' }
         };
 
-        // --- TIKTOK COLUMN KEYS (AHORA TODO EN MINÚSCULAS) ---
+        // --- TIKTOK COLUMN KEYS ---
         const TIKTOK_COLS = {
             DATE: 'date posted',
             ACCOUNT: 'account',
@@ -497,8 +508,10 @@
         // --- INITIALIZATION ---
         function init() {
             // Meta Param Listeners
-            costTargetInput.addEventListener('input', () => reRenderAllLevels());
-            resultsTargetInput.addEventListener('input', () => reRenderAllLevels());
+            metaCostPerConversationTargetInput.addEventListener('input', () => reRenderAllLevels());
+            metaNewContactsTargetInput.addEventListener('input', () => reRenderAllLevels());
+            metaImpressionsTargetInput.addEventListener('input', () => reRenderAllLevels());
+            metaReachTargetInput.addEventListener('input', () => reRenderAllLevels());
             
             // TikTok Param Listeners
             tiktokEngageTargetInput.addEventListener('input', () => reRenderAllLevels());
@@ -532,7 +545,7 @@
             }
         }
         
-        // --- FILE HANDLING (AHORA MÁS ROBUSTO) ---
+        // --- FILE HANDLING ---
         function handleFileSelect(event, level) {
             const file = event.target.files[0];
             const levelConfig = dashboardState[level];
@@ -556,16 +569,12 @@
                     if (level === 'tiktok') {
                         rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "", raw: false, dateNF: 'm/d/yyyy' });
                     } else {
-                        rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+                        rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "", raw: true });
                     }
 
-                    // *** CORRECCIÓN DE ERROR DE CABECERA ***
                     let headerRowIndex = -1;
                     for (let i = 0; i < Math.min(rows.length, 10); i++) {
-                        // Procesa la fila para que no importen mayúsculas o espacios
                         const processedRow = rows[i].map(h => String(h).trim().toLowerCase());
-                        
-                        // Usa las claves en minúsculas de levelConfig
                         const headerKeyFound = processedRow.includes(levelConfig.headerKey);
                         const requiredKeyFound = processedRow.includes(levelConfig.requiredKey);
 
@@ -577,23 +586,22 @@
 
                     if (headerRowIndex === -1) throw new Error(`Header row with '${levelConfig.headerKey}' and '${levelConfig.requiredKey}' not found. Check file.`);
 
-                    // Crea las cabeceras normalizadas (minúsculas y sin espacios)
                     const headers = rows[headerRowIndex].map(h => String(h).trim().toLowerCase());
                     const dataRows = rows.slice(headerRowIndex + 1);
 
                     const jsonData = dataRows.map(row => {
                         const obj = {};
                         headers.forEach((header, index) => { 
-                            if(header) obj[header] = row[index]; // Usa la cabecera normalizada
+                            if(header) obj[header] = row[index];
                         });
                         return obj;
-                    }).filter(row => row[levelConfig.nameKey] && String(row[levelConfig.nameKey]).trim() !== ''); // Filtra usando la clave normalizada
+                    }).filter(row => row[levelConfig.nameKey] && String(row[levelConfig.nameKey]).trim() !== '');
 
                     levelConfig.data = jsonData;
 
                     if (jsonData.length === 0) throw new Error("No data found after processing.");
                     
-                    renderData(level); // Call dispatcher
+                    renderData(level);
 
                 } catch (error) {
                     console.error("Error processing XLSX file:", error);
@@ -612,54 +620,39 @@
             const section = document.getElementById(levelConfig.sectionId);
             const tableBody = section.querySelector('.table-body');
             const data = levelConfig.data;
-
-            // Objeto de parámetros para pasar a las funciones
             const targets = { 
                 engageTarget: sanitizeNumber(tiktokEngageTargetInput.value), 
                 watchTimeTarget: sanitizeNumber(tiktokWatchTimeTargetInput.value), 
                 completionTarget: sanitizeNumber(tiktokCompletionTargetInput.value), 
                 retentionTarget: sanitizeNumber(tiktokRetentionTargetInput.value) 
             };
-
             if (!data || data.length === 0) { return; }
-            
-            // Mapea los datos, calculando salud Y colores en una sola pasada
             const dataWithHealth = data.map(row => {
                 const healthInfo = getTikTokHealth(row, targets);
-                
-                // Sanitiza valores para colorear
                 const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
                 const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
                 const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
                 const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
-
-                // Obtiene clases de color
                 const colors = {
                     engColor: getPerformanceColor(engRate, targets.engageTarget),
                     watchColor: getPerformanceColor(watchTime, targets.watchTimeTarget),
                     compColor: getPerformanceColor(completion, targets.completionTarget),
                     retColor: getPerformanceColor(retention, targets.retentionTarget)
                 };
-                
                 return {...row, healthInfo, colors };
             });
-            
             dataWithHealth.sort((a, b) => b.healthInfo.health - a.healthInfo.health);
-
             tableBody.innerHTML = '';
             dataWithHealth.forEach(row => {
                 const { health, color, label } = row.healthInfo;
                 const { engColor, watchColor, compColor, retColor } = row.colors;
                 const tr = document.createElement('tr');
-
                 const videoLink = row[TIKTOK_COLS.LINK] || 'N/A';
                 const displayLink = videoLink.length > 50 ? videoLink.substring(0, 50) + '...' : videoLink;
                 const linkHTML = videoLink !== 'N/A' 
                     ? `<a href="${videoLink}" target="_blank" title="${videoLink}">${displayLink}</a>` 
                     : 'N/A';
-
                 const datePosted = row[TIKTOK_COLS.DATE] || 'N/A';
-
                 tr.innerHTML = `
                     <td><div class="health-cell"><span class="health-score" style="background-color: ${color};">${health}</span><span>${label}</span></div></td>
                     <td>${datePosted}</td>
@@ -679,47 +672,29 @@
                     <td><span class="metric-value ${retColor}">${row[TIKTOK_COLS.RETENTION_3S] || 'N/A'}</span></td>`;
                 tableBody.appendChild(tr);
             });
-            
             updateTikTokSummaryCards(dataWithHealth);
         }
 
-        // *** CÁLCULO DE SALUD DE TIKTOK CON PESOS DINÁMICOS ***
         function getTikTokHealth(row, targets) {
             const { engageTarget, watchTimeTarget, completionTarget, retentionTarget } = targets;
-
-            // 1. Calcular pesos dinámicos
-            // Usa 1 si el parámetro es 0 o NaN para evitar división por cero
             const tEng = isNaN(engageTarget) || engageTarget <= 0 ? 1 : engageTarget;
             const tWatch = isNaN(watchTimeTarget) || watchTimeTarget <= 0 ? 1 : watchTimeTarget;
             const tComp = isNaN(completionTarget) || completionTarget <= 0 ? 1 : completionTarget;
             const tRet = isNaN(retentionTarget) || retentionTarget <= 0 ? 1 : retentionTarget;
-
             const totalWeight = tEng + tWatch + tComp + tRet;
             const wEng = tEng / totalWeight;
             const wWatch = tWatch / totalWeight;
             const wComp = tComp / totalWeight;
             const wRet = tRet / totalWeight;
-
-            // 2. Obtener valores de la fila
             const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
             const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
             const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
             const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
-            
-            // 3. Calcular scores individuales (0-100)
             const scoreEng = isNaN(engRate) || engageTarget <= 0 ? 0 : Math.min(100, (engRate / engageTarget) * 100);
             const scoreWatch = isNaN(watchTime) || watchTimeTarget <= 0 ? 0 : Math.min(100, (watchTime / watchTimeTarget) * 100);
             const scoreComp = isNaN(completion) || completionTarget <= 0 ? 0 : Math.min(100, (completion / completionTarget) * 100);
             const scoreRet = isNaN(retention) || retentionTarget <= 0 ? 0 : Math.min(100, (retention / retentionTarget) * 100);
-
-            // 4. Aplicar pesos dinámicos
-            const health = Math.round(
-                (scoreEng * wEng) + 
-                (scoreWatch * wWatch) + 
-                (scoreComp * wComp) +
-                (scoreRet * wRet)
-            );
-            
+            const health = Math.round( (scoreEng * wEng) + (scoreWatch * wWatch) + (scoreComp * wComp) + (scoreRet * wRet) );
             let color, label;
             if (health >= 85) { color = 'var(--health-excellent)'; label = "Excellent"; }
             else if (health >= 65) { color = 'var(--health-good)'; label = "Good"; }
@@ -731,21 +706,16 @@
 
         function updateTikTokSummaryCards(dataWithHealth) {
             const section = document.getElementById(dashboardState.tiktok.sectionId);
-            
             let totalEngagement = 0;
             let actionCount = 0;
-
             dataWithHealth.forEach(row => {
                 totalEngagement += sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]) || 0;
-                
                 const { label } = row.healthInfo;
                 if (label !== 'Excellent' && label !== 'Good') {
                     actionCount++;
                 }
             });
-
             const avgEngagement = dataWithHealth.length > 0 ? (totalEngagement / dataWithHealth.length).toFixed(2) : 0;
-
             section.querySelector('.total-count').textContent = dataWithHealth.length;
             section.querySelector('.avg-engagement').textContent = dataWithHealth.length > 0 ? `${avgEngagement}%` : '—';
             section.querySelector('.action-count').textContent = actionCount;
@@ -762,23 +732,28 @@
             const tableBody = section.querySelector('.table-body');
             const data = levelConfig.data;
 
-            const costTarget = sanitizeNumber(costTargetInput.value);
-            const resultsTarget = sanitizeNumber(resultsTargetInput.value);
+            const targets = {
+                costPerConversationTarget: sanitizeNumber(metaCostPerConversationTargetInput.value),
+                newContactsTarget: sanitizeNumber(metaNewContactsTargetInput.value),
+                impressionsTarget: sanitizeNumber(metaImpressionsTargetInput.value),
+                reachTarget: sanitizeNumber(metaReachTargetInput.value)
+            };
 
             if (!data || data.length === 0) { return; }
             
-            // Mapea datos, calcula salud Y colores
             const dataWithHealth = data.map(row => {
-                const healthInfo = getMetaHealth(row, costTarget, resultsTarget);
+                const healthInfo = getMetaHealth(row, targets);
                 
-                // Sanitiza valores para colorear
-                const cost = sanitizeNumber(row['cost per results'] || row['cost per result']);
-                const results = sanitizeNumber(row['results']);
+                const cost = sanitizeNumber(row['cost per messaging conversation started (usd)']); 
+                const contacts = sanitizeNumber(row['new messaging contacts']);
+                const impressions = sanitizeNumber(row['impressions']);
+                const reach = sanitizeNumber(row['reach']);
                 
-                // Obtiene clases de color
                 const colors = {
-                    costColor: getCostColor(cost, costTarget),
-                    resultsColor: getPerformanceColor(results, resultsTarget)
+                    costColor: getCostColor(cost, targets.costPerConversationTarget),
+                    contactsColor: getPerformanceColor(contacts, targets.newContactsTarget),
+                    impressionsColor: getPerformanceColor(impressions, targets.impressionsTarget),
+                    reachColor: getPerformanceColor(reach, targets.reachTarget)
                 };
                 
                 return {...row, healthInfo, colors};
@@ -789,18 +764,20 @@
             tableBody.innerHTML = '';
             dataWithHealth.forEach(row => {
                 const { health, color, label } = row.healthInfo;
-                const { costColor, resultsColor } = row.colors;
+                const { costColor, contactsColor, impressionsColor, reachColor } = row.colors;
                 const tr = document.createElement('tr');
                 
-                // Las claves aquí son todas minúsculas
+                const contactsValue = row['new messaging contacts'] || 'N/A';
+                const costValue = row['cost per messaging conversation started (usd)'] || 'N/A'; 
+                
                 tr.innerHTML = `
                     <td><div class="health-cell"><span class="health-score" style="background-color: ${color};">${health}</span><span>${label}</span></div></td>
                     <td>${row[levelConfig.nameKey] || 'N/A'}</td>
                     <td>${row['amount spent (usd)'] || row['amount spent'] || 'N/A'}</td>
-                    <td><span class="metric-value ${resultsColor}">${row['results'] || 'N/A'}</span></td>
-                    <td><span class="metric-value ${costColor}">${row['cost per results'] || row['cost per result'] || 'N/A'}</span></td>
-                    <td>${row['reach'] || 'N/A'}</td>
-                    <td>${row['impressions'] || 'N/A'}</td>
+                    <td><span class="metric-value ${contactsColor}">${contactsValue}</span></td>
+                    <td><span class="metric-value ${costColor}">${costValue}</span></td>
+                    <td><span class="metric-value ${reachColor}">${row['reach'] || 'N/A'}</span></td>
+                    <td><span class="metric-value ${impressionsColor}">${row['impressions'] || 'N/A'}</span></td>
                     <td>${row['link clicks'] || 'N/A'}</td>`;
                 tableBody.appendChild(tr);
             });
@@ -811,17 +788,14 @@
         function updateMetaSummaryCards(level, dataWithHealth) {
             const levelConfig = dashboardState[level];
             const section = document.getElementById(levelConfig.sectionId);
-            const data = levelConfig.data;
             
             let totalSpend = 0;
-            let totalResults = 0;
+            let totalNewContacts = 0;
             let actionCount = 0;
 
-            // dataWithHealth ya tiene la info de salud
             dataWithHealth.forEach(row => {
-                // Usa las claves en minúsculas
                 totalSpend += sanitizeNumber(row['amount spent (usd)'] || row['amount spent']) || 0;
-                totalResults += sanitizeNumber(row['results']) || 0;
+                totalNewContacts += sanitizeNumber(row['new messaging contacts']) || 0;
                 
                 const { label } = row.healthInfo;
                 if (label !== 'Excellent' && label !== 'Good') {
@@ -829,22 +803,79 @@
                 }
             });
 
-            const avgCost = totalResults > 0 ? (totalSpend / totalResults).toFixed(2) : 0;
+            const avgCost = totalNewContacts > 0 ? (totalSpend / totalNewContacts).toFixed(2) : 0;
 
-            section.querySelector('.total-count').textContent = data.length;
-            section.querySelector('.avg-cost').textContent = totalResults > 0 ? `$${avgCost}` : '—';
+            section.querySelector('.total-count').textContent = dataWithHealth.length;
+            section.querySelector('.avg-cost').textContent = totalNewContacts > 0 ? `$${avgCost}` : '—';
             section.querySelector('.action-count').textContent = actionCount;
         }
 
-        function getMetaHealth(row, costTarget, resultsTarget) {
-            // Usa las claves en minúsculas
-            const cost = sanitizeNumber(row['cost per results'] || row['cost per result']);
-            const results = sanitizeNumber(row['results']);
-
-            const scoreCost = isNaN(cost) || costTarget <= 0 ? 0 : Math.max(0, (2 - (cost / costTarget)) * 100);
-            const scoreResults = isNaN(results) || resultsTarget <= 0 ? 0 : Math.min(100, (results / resultsTarget) * 100);
+        // ************************************************************
+        // * ** FUNCIÓN DE LÓGICA DE SALUD DE META ADS (CORREGIDA) **
+        // ************************************************************
+        function getMetaHealth(row, targets) {
             
-            const health = Math.round(0.6 * scoreCost + 0.4 * scoreResults);
+            const baseWeights = {
+                cost: 0.40,
+                contacts: 0.40,
+                impressions: 0.10,
+                reach: 0.10
+            };
+
+            const cost = sanitizeNumber(row['cost per messaging conversation started (usd)']);
+            const contacts = sanitizeNumber(row['new messaging contacts']);
+            const impressions = sanitizeNumber(row['impressions']);
+            const reach = sanitizeNumber(row['reach']);
+
+            const { costPerConversationTarget, newContactsTarget, impressionsTarget, reachTarget } = targets;
+
+            // Puntuación de Costo (Menos es mejor)
+            // *** ¡CORRECCIÓN! Se añade Math.min(100, ...) para limitar la puntuación a 100 ***
+            const scoreCost = (isNaN(cost) || isNaN(costPerConversationTarget) || costPerConversationTarget <= 0) 
+                ? NaN 
+                : Math.min(100, Math.max(0, (2 - (cost / costPerConversationTarget)) * 100));
+
+            // Puntuación de Contactos (Más es mejor)
+            const scoreContacts = (isNaN(contacts) || isNaN(newContactsTarget) || newContactsTarget <= 0)
+                ? NaN
+                : Math.min(100, (contacts / newContactsTarget) * 100);
+
+            // Puntuación de Impresiones (Más es mejor)
+            const scoreImpressions = (isNaN(impressions) || isNaN(impressionsTarget) || impressionsTarget <= 0)
+                ? NaN
+                : Math.min(100, (impressions / impressionsTarget) * 100);
+
+            // Puntuación de Alcance (Más es mejor)
+            const scoreReach = (isNaN(reach) || isNaN(reachTarget) || reachTarget <= 0)
+                ? NaN
+                : Math.min(100, (reach / reachTarget) * 100);
+
+            // Calcular Salud Final con Ponderación Dinámica
+            let totalWeight = 0;
+            let weightedScore = 0;
+
+            if (!isNaN(scoreCost)) {
+                weightedScore += scoreCost * baseWeights.cost;
+                totalWeight += baseWeights.cost;
+            }
+            if (!isNaN(scoreContacts)) {
+                weightedScore += scoreContacts * baseWeights.contacts;
+                totalWeight += baseWeights.contacts;
+            }
+            if (!isNaN(scoreImpressions)) {
+                weightedScore += scoreImpressions * baseWeights.impressions;
+                totalWeight += baseWeights.impressions;
+            }
+            if (!isNaN(scoreReach)) {
+                weightedScore += scoreReach * baseWeights.reach;
+                totalWeight += baseWeights.reach;
+            }
+
+            if (totalWeight === 0) {
+                return { health: 0, color: 'var(--health-urgent)', label: "No Data" };
+            }
+
+            const health = Math.round(weightedScore / totalWeight);
             
             let color, label;
             if (health >= 85) { color = 'var(--health-excellent)'; label = "Excellent"; }
@@ -852,19 +883,16 @@
             else if (health >= 45) { color = 'var(--health-review)'; label = "Review"; }
             else if (health >= 25) { color = 'var(--health-attention)'; label = "Attention"; }
             else { color = 'var(--health-urgent)'; label = "Urgent"; }
+            
             return { health, color, label };
         }
 
         // ===========================================
-        // == NUEVAS FUNCIONES DE COLOR
+        // == FUNCIONES DE COLOR
         // ===========================================
 
-        /**
-         * Devuelve una clase de color para métricas donde MÁS ALTO es MEJOR.
-         */
         function getPerformanceColor(value, target) {
             if (isNaN(value) || isNaN(target) || target <= 0) return 'text-neutral';
-            
             if (value >= target) return 'text-excellent';
             if (value >= target * 0.8) return 'text-good';
             if (value >= target * 0.6) return 'text-review';
@@ -872,12 +900,8 @@
             return 'text-urgent';
         }
 
-        /**
-         * Devuelve una clase de color para métricas donde MÁS BAJO es MEJOR.
-         */
         function getCostColor(value, target) {
             if (isNaN(value) || isNaN(target) || target <= 0) return 'text-neutral';
-
             if (value <= target) return 'text-excellent';
             if (value <= target * 1.25) return 'text-good';
             if (value <= target * 1.5) return 'text-review';
@@ -899,7 +923,6 @@
 
         function sanitizePercentage(value) {
             if (value === undefined || value === null || value === '' || value === '-' || String(value).trim().toLowerCase() === 'n/a') return NaN;
-            // Limpia "49%" o "12.5%" a 49 o 12.5
             let stringValue = String(value).replace(/[^0-9.-]/g, '');
             if (stringValue === '' || stringValue === '-') return NaN;
             return Number(stringValue);
