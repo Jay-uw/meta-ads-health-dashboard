@@ -1,4 +1,11 @@
 # 🧭 Marketing Health Dashboard
+![Version](https://img.shields.io/badge/version-v2.1.1-purple)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Platform](https://img.shields.io/badge/platform-web%20dashboard-yellow)
+![Meta Ads](https://img.shields.io/badge/data-Meta%20Ads-blue)
+![TikTok](https://img.shields.io/badge/data-TikTok-pink)
+### ✅ Current Version: **v2.1.1**
+
 
 The **Marketing Health Dashboard** is an all-in-one performance diagnostic web tool designed to evaluate and visualize the health of your **digital marketing performance** across multiple platforms, including **Meta Ads** (Facebook & Instagram) and **TikTok Posts**.
 
@@ -20,9 +27,11 @@ Each platform has its own scoring logic, data parameters, and visual summaries t
 ### 📊 Dual Parameter Dashboard
 The sidebar includes two distinct parameter panels:
 
-**Meta Ads Parameters**
-- Cost per Result  
-- Results  
+**Meta Ads Parameters (Updated Universal Metrics)**
+- Cost per Messaging Conversation  
+- New Messaging Contacts  
+- Impressions  
+- Reach  
 
 **TikTok Parameters**
 - Engagement Rate  
@@ -30,53 +39,47 @@ The sidebar includes two distinct parameter panels:
 - Completion Rate  
 - Retention Rate  
 
-Each set of metrics contributes to its own independent health score system.
+Each set of metrics contributes to its own independent and platform-specific health score system.
 
 ---
 
 ### 📈 Smart Health Scoring
-The system automatically calculates and displays a **Health Score** for each platform:
 
-**Meta Ads Health Score:**  
-Based on Cost per Result (60%) and Results (40%).
+The system automatically calculates and displays a **Health Score** for each platform based on optimized, goal-driven weighting systems.
 
-**TikTok Health Score:**  
-Uses a new **dynamic weighting system**.  
-Instead of fixed weights, each metric’s importance is determined by the parameter values you set.
+**Meta Ads Health Score (Updated System):**
+- 40 percent weight: New Messaging Contacts  
+- 40 percent weight: Cost per Messaging Conversation  
+- 10 percent weight: Impressions  
+- 10 percent weight: Reach  
 
-**How it works:**  
-1. The system adds the values of your four TikTok parameters (for example: 8 + 60 + 40 + 70 = 178).  
-2. Each metric’s weight = (Parameter Value) ÷ (Sum of All Parameters).  
-3. Example with the defaults:  
-   - Retention @ 3s (70): ~39% of total weight (most important)  
-   - Avg. Watch Time (60): ~34%  
-   - Completion Rate (40): ~22%  
-   - Engagement Rate (8): ~5%  
+Includes **dynamic weight redistribution** if certain metrics are missing.  
+Example: old Engagement campaigns without messaging data still score fairly out of 100.
 
-This makes the TikTok Health Score far more accurate, automatically prioritizing the metrics that matter most to your goals.
+**TikTok Health Score:**
+Uses a **dynamic weighting engine** based on your custom parameter values.  
+No fixed weights, completely adaptive to user priorities.
 
 ---
 
 ### 🎨 Color-Coded Performance
-All key metrics (Cost/Result, Results, Engagement Rate, Watch Time %, etc.) now display **color indicators**.  
-Values change from **green (Excellent)** to **red (Urgent)** based on how well they perform compared to your defined parameters.  
-This gives you an instant visual understanding of what’s working and what needs optimization.
+All key metrics now display **color indicators** from **green (Excellent)** to **red (Urgent)** for instant clarity.
 
 ---
 
 ### 📤 Easy Data Upload
 Upload `.xlsx` files directly from:
-- Meta Ads Manager for ad data  
-- TikTok Analytics for post data  
+- Meta Ads Manager  
+- TikTok Analytics  
 
-The system automatically detects the file type and processes the correct metrics and visualizations.
+The system automatically detects the correct structure and processes the data.
 
 ---
 
 ### 💡 Actionable Insights
-- Identify underperforming ads or posts at a glance.  
-- Review total posts, average engagement, and elements requiring immediate action.  
-- Use visual tags to quickly assess status:
+- Identify underperforming assets fast  
+- View average performance and problem items  
+- Status tags:
   - ✅ Excellent  
   - 🟢 Good  
   - 🟠 Review  
@@ -85,31 +88,55 @@ The system automatically detects the file type and processes the correct metrics
 ---
 
 ### 🔗 Interactive Features
-- The “Video Link” column in the TikTok section is now clickable and opens in a new tab.  
-- Headers such as “Ad Name” or “Results” are now detected regardless of uppercase, lowercase, or spacing differences. The dashboard automatically finds the correct columns even if the file has variations in naming.
+- Clickable TikTok video links  
+- Flexible column detection regardless of formatting differences  
 
 ---
 
-## 🎯 Who It’s For
-This dashboard is ideal for:
-- Digital advertisers and social media managers  
-- Marketing analysts and automation teams  
-- Agencies managing both Meta and TikTok campaigns  
-
-Whether auditing past performance or optimizing live campaigns, the **Marketing Health Dashboard** helps you make faster and smarter data-driven decisions.
+## 🎯 Who It Is For
+Ideal for:
+- Advertisers and social media managers  
+- Data analysts and automation pros  
+- Agencies handling Meta and TikTok performance  
 
 ---
 
 ## 🧩 Tech Overview
-- Built using JavaScript, HTML, and CSS.  
-- Reads Excel data via `.xlsx` upload.  
-- Includes separate logic for Meta and TikTok analysis.  
-- Fully responsive and browser-based.  
+- JavaScript, HTML, CSS  
+- `.xlsx` processing  
+- Modular scoring logic for each platform  
+- Fully browser-based and responsive  
 
 ---
 
 <details>
   <summary><strong>🗓️ Updates Log</strong></summary>
+
+### 🗓️ November 7, 2025 - Meta Ads Scoring System Upgrade
+A major update has been implemented to unify scoring across **Engagement** and **Lead Generation** campaigns.
+
+**New Universal Metrics Added:**
+- Cost per Messaging Conversation  
+- New Messaging Contacts  
+- Impressions  
+- Reach  
+
+**New Weighting Structure:**
+- 40 percent: Cost per Messaging Conversation  
+- 40 percent: New Messaging Contacts  
+- 10 percent: Reach  
+- 10 percent: Impressions  
+
+**Dynamic Intelligent Weighting:**  
+If a metric is missing (for example older Engagement campaigns with no New Messaging Contacts), its weight is redistributed across the existing metrics so all campaigns still score fairly out of 100.
+
+**Updated Tables:**  
+Campaigns, Ad Sets, and Ads tables now include these universal metrics with color-coded results.
+
+**Balanced Scoring Logic:**  
+All scores now cap at 100, even if results exceed 200 percent, eliminating inflated performance and ensuring strict accuracy.
+
+---
 
 ### 🗓️ November 1, 2025 — TikTok Integration & Dynamic Scoring Update
 - Added full TikTok support alongside Meta Ads.  
@@ -120,7 +147,7 @@ Whether auditing past performance or optimizing live campaigns, the **Marketing 
 - Improved date and percentage formatting for TikTok data.  
 - Made the “Video Link” column clickable for easy access to TikTok posts.  
 - Fixed “Header not found” error. The system now detects headers regardless of case sensitivity or extra spaces.  
-- Replaced fixed 25% TikTok metric weights with a dynamic weighting system that adapts to your custom parameter values.  
+- Replaced fixed 25 percent TikTok metric weights with a dynamic weighting system that adapts to your custom parameter values.  
 - Added color-coded cell highlighting for all major performance metrics, helping visualize strengths and weaknesses instantly.
 
 </details>
