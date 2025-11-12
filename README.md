@@ -1,11 +1,11 @@
 # 🧭 Marketing Health Dashboard
-![Version](https://img.shields.io/badge/version-v2.1.1-purple)
+![Version](https://img.shields.io/badge/version-v2.2.0-purple)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Platform](https://img.shields.io/badge/platform-web%20dashboard-yellow)
 ![Meta Ads](https://img.shields.io/badge/data-Meta%20Ads-blue)
 ![TikTok](https://img.shields.io/badge/data-TikTok-pink)
-### ✅ Current Version: **v2.1.1**
 
+### ✅ Current Version: **v2.2.0**
 
 The **Marketing Health Dashboard** is an all-in-one performance diagnostic web tool designed to evaluate and visualize the health of your **digital marketing performance** across multiple platforms, including **Meta Ads** (Facebook & Instagram) and **TikTok Posts**.
 
@@ -33,11 +33,12 @@ The sidebar includes two distinct parameter panels:
 - Impressions  
 - Reach  
 
-**TikTok Parameters**
+**TikTok Parameters (Updated with Views)**
 - Engagement Rate  
 - Watch Time %  
 - Completion Rate  
 - Retention Rate  
+- Views  
 
 Each set of metrics contributes to its own independent and platform-specific health score system.
 
@@ -56,9 +57,18 @@ The system automatically calculates and displays a **Health Score** for each pla
 Includes **dynamic weight redistribution** if certain metrics are missing.  
 Example: old Engagement campaigns without messaging data still score fairly out of 100.
 
-**TikTok Health Score:**
-Uses a **dynamic weighting engine** based on your custom parameter values.  
-No fixed weights, completely adaptive to user priorities.
+**TikTok Health Score (v2.2.0):**
+Now uses a **fixed dynamic weighting system** with the addition of **Views** as a key metric.  
+Weights are evenly distributed for consistency and stability, similar to Meta Ads.
+
+**New TikTok Scoring Weights:**
+- 25 percent: Retention at 3s  
+- 20 percent: Avg. Watch Time %  
+- 20 percent: Completion Rate  
+- 20 percent: Engagement Rate  
+- 15 percent: Views  
+
+If a post is missing one of these metrics (e.g., Views = N/A), its weight is automatically redistributed among the remaining metrics, maintaining fair scoring out of 100.
 
 ---
 
@@ -111,6 +121,29 @@ Ideal for:
 
 <details>
   <summary><strong>🗓️ Updates Log</strong></summary>
+
+### 🗓️ November 12, 2025 - TikTok Scoring System Upgrade (v.2.2.0)
+To provide a more complete and stable TikTok Health Score, the scoring system has been updated to include performance based on **Views**.
+
+**New Metric Added to TikTok:**
+**Views** has been added as the fifth key parameter for the TikTok Health Score. You can now set a target for views.
+
+**New Fixed Weight System for TikTok:**
+The previous “goal-based weighting” system has been replaced with a **fixed dynamic weighting** system (similar to Meta Ads).  
+This ensures that the importance of each metric remains consistent, instead of varying according to the targets entered.  
+The Health Score is now more stable and predictable.
+
+**New TikTok Scoring Weights:**
+- 25%: Retention at 3s  
+- 20%: Avg. Watch Time %  
+- 20%: Completion Rate  
+- 20%: Engagement Rate  
+- 15%: Views  
+
+**Smart Scoring (No Changes):**  
+The dynamic scoring system remains the same: if a post is missing a data point (e.g., Views = N/A), its 15% weight is automatically redistributed among the other four metrics, allowing the post to be fairly rated on a total scale of 100.
+
+---
 
 ### 🗓️ November 7, 2025 - Meta Ads Scoring System Upgrade
 A major update has been implemented to unify scoring across **Engagement** and **Lead Generation** campaigns.
