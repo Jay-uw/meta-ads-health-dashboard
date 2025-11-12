@@ -304,6 +304,10 @@
                 <div class="parameters-group">
                     <h3>TikTok Posts</h3>
                     <div class="control-group">
+                        <label for="tiktokViewsTarget">Views (Target)</label>
+                        <input id="tiktokViewsTarget" type="number" value="5000" step="100">
+                    </div>
+                    <div class="control-group">
                         <label for="tiktokEngageTarget">Engagement Rate (Target %)</label>
                         <input id="tiktokEngageTarget" type="number" value="8" step="0.5">
                     </div>
@@ -460,7 +464,7 @@
                 <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="96d65e88-747c-424f-a469-1d18c9eb4f15" data-share-badge-host="https://www.credly.com"></div>
             </div>
         </div>
-        <p>v.2.1.1</p>
+        <p>v.2.2.0</p>
     </footer>
     
     <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
@@ -473,6 +477,9 @@
         const metaNewContactsTargetInput = document.getElementById('metaNewContactsTarget');
         const metaImpressionsTargetInput = document.getElementById('metaImpressionsTarget');
         const metaReachTargetInput = document.getElementById('metaReachTarget');
+        
+        // *** NUEVO INPUT DE TIKTOK ***
+        const tiktokViewsTargetInput = document.getElementById('tiktokViewsTarget');
         const tiktokEngageTargetInput = document.getElementById('tiktokEngageTarget');
         const tiktokWatchTimeTargetInput = document.getElementById('tiktokWatchTimeTarget');
         const tiktokCompletionTargetInput = document.getElementById('tiktokCompletionTarget');
@@ -514,6 +521,8 @@
             metaReachTargetInput.addEventListener('input', () => reRenderAllLevels());
             
             // TikTok Param Listeners
+            // *** NUEVO LISTENER ***
+            tiktokViewsTargetInput.addEventListener('input', () => reRenderAllLevels());
             tiktokEngageTargetInput.addEventListener('input', () => reRenderAllLevels());
             tiktokWatchTimeTargetInput.addEventListener('input', () => reRenderAllLevels());
             tiktokCompletionTargetInput.addEventListener('input', () => reRenderAllLevels());
@@ -620,20 +629,30 @@
             const section = document.getElementById(levelConfig.sectionId);
             const tableBody = section.querySelector('.table-body');
             const data = levelConfig.data;
+            
+            // *** AÑADIR NUEVO TARGET AL OBJETO ***
             const targets = { 
+                tiktokViewsTarget: sanitizeNumber(tiktokViewsTargetInput.value),
                 engageTarget: sanitizeNumber(tiktokEngageTargetInput.value), 
                 watchTimeTarget: sanitizeNumber(tiktokWatchTimeTargetInput.value), 
                 completionTarget: sanitizeNumber(tiktokCompletionTargetInput.value), 
                 retentionTarget: sanitizeNumber(tiktokRetentionTargetInput.value) 
             };
+
             if (!data || data.length === 0) { return; }
+            
             const dataWithHealth = data.map(row => {
                 const healthInfo = getTikTokHealth(row, targets);
+                
+                // *** OBTENER VALOR Y COLOR PARA VIEWS ***
+                const views = sanitizeNumber(row[TIKTOK_COLS.VIEWS]);
                 const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
                 const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
                 const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
                 const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
+                
                 const colors = {
+                    viewsColor: getPerformanceColor(views, targets.tiktokViewsTarget),
                     engColor: getPerformanceColor(engRate, targets.engageTarget),
                     watchColor: getPerformanceColor(watchTime, targets.watchTimeTarget),
                     compColor: getPerformanceColor(completion, targets.completionTarget),
@@ -641,11 +660,13 @@
                 };
                 return {...row, healthInfo, colors };
             });
+
             dataWithHealth.sort((a, b) => b.healthInfo.health - a.healthInfo.health);
             tableBody.innerHTML = '';
             dataWithHealth.forEach(row => {
                 const { health, color, label } = row.healthInfo;
-                const { engColor, watchColor, compColor, retColor } = row.colors;
+                // *** EXTRAER viewsColor ***
+                const { viewsColor, engColor, watchColor, compColor, retColor } = row.colors;
                 const tr = document.createElement('tr');
                 const videoLink = row[TIKTOK_COLS.LINK] || 'N/A';
                 const displayLink = videoLink.length > 50 ? videoLink.substring(0, 50) + '...' : videoLink;
@@ -658,7 +679,7 @@
                     <td>${datePosted}</td>
                     <td>${row[TIKTOK_COLS.ACCOUNT] || 'N/A'}</td>
                     <td class="video-link-cell">${linkHTML}</td>
-                    <td>${row[TIKTOK_COLS.VIEWS] || 'N/A'}</td>
+                    <td><span class="metric-value ${viewsColor}">${row[TIKTOK_COLS.VIEWS] || 'N/A'}</span></td>
                     <td>${row[TIKTOK_COLS.LIKES] || 'N/A'}</td>
                     <td>${row[TIKTOK_COLS.COMMENTS] || 'N/A'}</td>
                     <td>${row[TIKTOK_COLS.SHARES] || 'N/A'}</td>
@@ -675,32 +696,90 @@
             updateTikTokSummaryCards(dataWithHealth);
         }
 
+        // ************************************************************
+        // * ** FUNCIÓN DE LÓGICA DE SALUD DE TIKTOK (NUEVA) **
+        // ************************************************************
         function getTikTokHealth(row, targets) {
-            const { engageTarget, watchTimeTarget, completionTarget, retentionTarget } = targets;
-            const tEng = isNaN(engageTarget) || engageTarget <= 0 ? 1 : engageTarget;
-            const tWatch = isNaN(watchTimeTarget) || watchTimeTarget <= 0 ? 1 : watchTimeTarget;
-            const tComp = isNaN(completionTarget) || completionTarget <= 0 ? 1 : completionTarget;
-            const tRet = isNaN(retentionTarget) || retentionTarget <= 0 ? 1 : retentionTarget;
-            const totalWeight = tEng + tWatch + tComp + tRet;
-            const wEng = tEng / totalWeight;
-            const wWatch = tWatch / totalWeight;
-            const wComp = tComp / totalWeight;
-            const wRet = tRet / totalWeight;
+            
+            // 1. Definir pesos base fijos
+            const baseWeights = {
+                views: 0.15,
+                retention: 0.25,
+                watchTime: 0.20,
+                completion: 0.20,
+                engagement: 0.20
+            };
+
+            // 2. Obtener objetivos (targets)
+            const { tiktokViewsTarget, engageTarget, watchTimeTarget, completionTarget, retentionTarget } = targets;
+
+            // 3. Obtener valores de la fila
+            const views = sanitizeNumber(row[TIKTOK_COLS.VIEWS]);
             const engRate = sanitizePercentage(row[TIKTOK_COLS.ENGAGEMENT_RATE]);
             const watchTime = sanitizePercentage(row[TIKTOK_COLS.AVG_WATCH_TIME_PERCENT]);
             const completion = sanitizePercentage(row[TIKTOK_COLS.COMPLETION_RATE]);
             const retention = sanitizePercentage(row[TIKTOK_COLS.RETENTION_3S]);
-            const scoreEng = isNaN(engRate) || engageTarget <= 0 ? 0 : Math.min(100, (engRate / engageTarget) * 100);
-            const scoreWatch = isNaN(watchTime) || watchTimeTarget <= 0 ? 0 : Math.min(100, (watchTime / watchTimeTarget) * 100);
-            const scoreComp = isNaN(completion) || completionTarget <= 0 ? 0 : Math.min(100, (completion / completionTarget) * 100);
-            const scoreRet = isNaN(retention) || retentionTarget <= 0 ? 0 : Math.min(100, (retention / retentionTarget) * 100);
-            const health = Math.round( (scoreEng * wEng) + (scoreWatch * wWatch) + (scoreComp * wComp) + (scoreRet * wRet) );
+
+            // 4. Calcular puntuaciones individuales (0-100), todas "Más es Mejor"
+            const scoreViews = (isNaN(views) || isNaN(tiktokViewsTarget) || tiktokViewsTarget <= 0)
+                ? NaN
+                : Math.min(100, (views / tiktokViewsTarget) * 100);
+            
+            const scoreEng = (isNaN(engRate) || isNaN(engageTarget) || engageTarget <= 0) 
+                ? NaN 
+                : Math.min(100, (engRate / engageTarget) * 100);
+            
+            const scoreWatch = (isNaN(watchTime) || isNaN(watchTimeTarget) || watchTimeTarget <= 0)
+                ? NaN
+                : Math.min(100, (watchTime / watchTimeTarget) * 100);
+            
+            const scoreComp = (isNaN(completion) || isNaN(completionTarget) || completionTarget <= 0)
+                ? NaN
+                : Math.min(100, (completion / completionTarget) * 100);
+            
+            const scoreRet = (isNaN(retention) || isNaN(retentionTarget) || retentionTarget <= 0)
+                ? NaN
+                : Math.min(100, (retention / retentionTarget) * 100);
+
+            // 5. Calcular Salud Final con Ponderación Dinámica
+            let totalWeight = 0;
+            let weightedScore = 0;
+
+            if (!isNaN(scoreViews)) {
+                weightedScore += scoreViews * baseWeights.views;
+                totalWeight += baseWeights.views;
+            }
+            if (!isNaN(scoreEng)) {
+                weightedScore += scoreEng * baseWeights.engagement;
+                totalWeight += baseWeights.engagement;
+            }
+            if (!isNaN(scoreWatch)) {
+                weightedScore += scoreWatch * baseWeights.watchTime;
+                totalWeight += baseWeights.watchTime;
+            }
+            if (!isNaN(scoreComp)) {
+                weightedScore += scoreComp * baseWeights.completion;
+                totalWeight += baseWeights.completion;
+            }
+            if (!isNaN(scoreRet)) {
+                weightedScore += scoreRet * baseWeights.retention;
+                totalWeight += baseWeights.retention;
+            }
+
+            if (totalWeight === 0) {
+                return { health: 0, color: 'var(--health-urgent)', label: "No Data" };
+            }
+
+            const health = Math.round(weightedScore / totalWeight);
+            
+            // 6. Asignar Color y Etiqueta
             let color, label;
             if (health >= 85) { color = 'var(--health-excellent)'; label = "Excellent"; }
             else if (health >= 65) { color = 'var(--health-good)'; label = "Good"; }
             else if (health >= 45) { color = 'var(--health-review)'; label = "Review"; }
             else if (health >= 25) { color = 'var(--health-attention)'; label = "Attention"; }
             else { color = 'var(--health-urgent)'; label = "Urgent"; }
+            
             return { health, color, label };
         }
 
@@ -810,9 +889,6 @@
             section.querySelector('.action-count').textContent = actionCount;
         }
 
-        // ************************************************************
-        // * ** FUNCIÓN DE LÓGICA DE SALUD DE META ADS (CORREGIDA) **
-        // ************************************************************
         function getMetaHealth(row, targets) {
             
             const baseWeights = {
@@ -829,28 +905,22 @@
 
             const { costPerConversationTarget, newContactsTarget, impressionsTarget, reachTarget } = targets;
 
-            // Puntuación de Costo (Menos es mejor)
-            // *** ¡CORRECCIÓN! Se añade Math.min(100, ...) para limitar la puntuación a 100 ***
             const scoreCost = (isNaN(cost) || isNaN(costPerConversationTarget) || costPerConversationTarget <= 0) 
                 ? NaN 
                 : Math.min(100, Math.max(0, (2 - (cost / costPerConversationTarget)) * 100));
 
-            // Puntuación de Contactos (Más es mejor)
             const scoreContacts = (isNaN(contacts) || isNaN(newContactsTarget) || newContactsTarget <= 0)
                 ? NaN
                 : Math.min(100, (contacts / newContactsTarget) * 100);
 
-            // Puntuación de Impresiones (Más es mejor)
             const scoreImpressions = (isNaN(impressions) || isNaN(impressionsTarget) || impressionsTarget <= 0)
                 ? NaN
                 : Math.min(100, (impressions / impressionsTarget) * 100);
 
-            // Puntuación de Alcance (Más es mejor)
             const scoreReach = (isNaN(reach) || isNaN(reachTarget) || reachTarget <= 0)
                 ? NaN
                 : Math.min(100, (reach / reachTarget) * 100);
 
-            // Calcular Salud Final con Ponderación Dinámica
             let totalWeight = 0;
             let weightedScore = 0;
 
@@ -923,7 +993,7 @@
 
         function sanitizePercentage(value) {
             if (value === undefined || value === null || value === '' || value === '-' || String(value).trim().toLowerCase() === 'n/a') return NaN;
-            let stringValue = String(value).replace(/[^0-9.-]/g, '');
+            let stringValue = String(value).replace(/[^0-img.-]/g, '');
             if (stringValue === '' || stringValue === '-') return NaN;
             return Number(stringValue);
         }
